@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,7 @@ class UserFactory extends Factory
 
             'description' => $this->faker->text(10),
             'image' => $this->faker->imageUrl(),
+            'role_id' => Role::inRandomOrder()->first()->id
         ];
     }
 

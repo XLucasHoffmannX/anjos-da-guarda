@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
 
 class RoleDefaultSeeder extends Seeder
 {
@@ -13,10 +12,10 @@ class RoleDefaultSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker)
+    public function run()
     {
-        Role::create(['uuid' => $faker->uuid(), 'name' => 'admin_access']);
-        Role::create(['uuid' => $faker->uuid(), 'name' => 'edit_access']);
-        Role::create(['uuid' => $faker->uuid(), 'name' => 'viewer_access']);
+        Role::create(['name' => 'admin_access']);
+        Role::create(['name' => 'edit_access']);
+        Role::create(['name' => 'viewer_access']);
     }
 }

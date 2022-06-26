@@ -7,7 +7,6 @@ export class Auth {
         await Http.post(route, {
             ...login
         }).then(async res => {
-            console.log(res)
             Cookies.set('access-token', res.data.access);
             if (res.data.token && Cookies.get('access-token')) {
                 window.location.href = '/h';

@@ -10,6 +10,8 @@ const Home = lazy(() => import('../resources/views/Home'));
 export default function RouteBrowser() {
     const state: any = useContext(ContextState);
 
+    console.log(state);
+
     return (
         <RouterApp>
             <Suspense fallback={<div><div className="vh-100 d-flex justify-content-center align-items-center"><CircularProgress /></div></div>}>

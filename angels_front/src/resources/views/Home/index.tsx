@@ -1,10 +1,17 @@
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useState, useContext } from 'react'
+import { Redirect } from 'react-router-dom';
 import { Auth } from '../../../app/api/Auth';
 import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
+import { ContextState } from '../../../context/DataProvider';
 import { AuthInterface } from '../../../types/interfaces/auth.interface.';
 
 export default function Home() {
+  const state: any = useContext(ContextState);
+
   const auth = new Auth();
+  const [success, setSuccess] = useState(false);
+  const setNotify = state.notifyGeral.notify[1];
+
   const [login, setLogin] = React.useState<AuthInterface>({
     email: '',
     password: ''
@@ -14,7 +21,15 @@ export default function Home() {
 
   const handleAuthSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    auth.set('/auth/login', login);
+    auth.set('/auth/login', login)
+      .then(()=> {
+        setNotify({ open: true, message: 'Login realizado com successo!', success: true });
+        setSuccess(true);
+      }).catch(error => {
+        setNotify({ open: true, message: 'Ocorreu um erro ao entrar!', success: false });
+        setSuccess(false);
+        if (error) throw error;
+      });
   }
 
   return (
@@ -33,6 +48,7 @@ export default function Home() {
           </div>
         </form>
       </div>
+      {success && <Redirect to='/home' />}
     </>
   )
 }

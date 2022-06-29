@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export default function NotifyApi() {
     const [notify, setNotify] = useState({
         open: false,
-        message: 'padrao',
+        message: '-',
         success: true
     });
 

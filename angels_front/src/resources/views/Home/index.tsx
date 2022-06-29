@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React, { SyntheticEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom';
 import { Auth } from '../../../app/api/Auth';

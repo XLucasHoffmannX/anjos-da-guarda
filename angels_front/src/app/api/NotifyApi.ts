@@ -10,7 +10,7 @@ export default function NotifyApi() {
     if(notify.open){
         setTimeout(()=>{
             setNotify({...notify, open: false})
-        }, 8000)
+        }, 4000)
     }
 
     return {

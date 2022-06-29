@@ -22,13 +22,14 @@ export default function Home() {
   const handleAuthSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     auth.set('/auth/login', login)
-    .then(res =>{
-      setNotify({open: true, message: 'Login realizado com successo!', success: true});
-      setSuccess(true);
-    }).catch(error => {
-      setNotify({open: true, message: 'Ocorreu um erro!', success: false});
-      setSuccess(false);
-    });
+      .then(()=> {
+        setNotify({ open: true, message: 'Login realizado com successo!', success: true });
+        setSuccess(true);
+      }).catch(error => {
+        setNotify({ open: true, message: 'Ocorreu um erro ao entrar!', success: false });
+        setSuccess(false);
+        if (error) throw error;
+      });
   }
 
   return (
@@ -47,7 +48,7 @@ export default function Home() {
           </div>
         </form>
       </div>
-      {success && <Redirect to='/home'/>}
+      {success && <Redirect to='/home' />}
     </>
   )
 }

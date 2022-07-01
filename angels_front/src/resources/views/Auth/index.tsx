@@ -5,7 +5,7 @@ import TitleAuth from '../../assets/images/title-auth.svg';
 import './auth.css';
 
 export default function Auth() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     open ? setOpen(false) : setOpen(true);
@@ -20,14 +20,19 @@ export default function Auth() {
               <img className='title_auth' src={TitleAuth} alt="" />
               <span className='mt-2 subtitle_auth'>Sistema de gerenciamento geral de pacientes</span>
               {
-                open ? 
-                  <div className='form-control-group'>
-                    <input type="text" />
-                  </div>  
+                open ?
+                  <div className='input_area_auth w-100'>
+                    <div className='form-control-group'>
+                      <input type="text" placeholder='Email' />
+                    </div> 
+                    <div className='form-control-group'>
+                      <input type="text" placeholder='Senha de acesso' />
+                    </div>
+                  </div>
                   :
                   null
               }
-              <span className='btn_access_primary d-flex align-items-center justify-content-center mt-3' onClick={()=> handleOpen()}>Acessar</span>
+              <span className='btn_access_primary d-flex align-items-center justify-content-center mt-3' onClick={() => handleOpen()}>Acessar</span>
               <div className='auth_info_subtitle mt-2 d-flex flex-column align-items-center justify-content-center'>
                 <div className='auth_info_subtitle_first mt-2'>
                   <span>I.L.P.I</span>

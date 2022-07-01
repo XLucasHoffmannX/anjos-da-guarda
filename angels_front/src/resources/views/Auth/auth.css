@@ -52,7 +52,6 @@
 
 /* form-control-group */
 .form-control-group{
-    border: 1px solid red;
     margin: 1rem 0;
     width: 100%;
     display: flex;
@@ -61,7 +60,15 @@
 }
 
 .form-control-group input{
-    
+    width: 100%;
+    border-radius: 8px;
+    height: 56px;
+    font-size: 18px;
+    padding-left: 1rem;
+}
+
+.input_area_auth{
+    animation: up .6s;
 }
 
 /* media queries */

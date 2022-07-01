@@ -63,3 +63,8 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+input{
+  outline: none;
+  border: 0;
+}

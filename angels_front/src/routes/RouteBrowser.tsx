@@ -4,8 +4,7 @@ import { ContextState } from '../context/DataProvider';
 import { CircularProgress } from "@material-ui/core";
 
 // lazy components
-const Home = lazy(() => import('../resources/views/Home'));
-
+const Auth = lazy(() => import('../resources/views/Auth'));
 
 export default function RouteBrowser() {
     const state: any = useContext(ContextState);
@@ -16,7 +15,7 @@ export default function RouteBrowser() {
         <RouterApp>
             <Suspense fallback={<div><div className="vh-100 d-flex justify-content-center align-items-center"><CircularProgress /></div></div>}>
                 <Switch>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/" component={Auth} />
                 </Switch>
             </Suspense>
         </RouterApp>

@@ -11,10 +11,12 @@ import Notify from './components/Notify/Notify';
 
 function App() {
   return (
-    <DataProvider>
-      <Notify />
-      <RouteBrowser />
-    </DataProvider>
+    <div id='container_app'>
+      <DataProvider>
+        <Notify />
+        <RouteBrowser />
+      </DataProvider>
+    </div>
   );
 }
 

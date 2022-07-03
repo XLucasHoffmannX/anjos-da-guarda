@@ -18,6 +18,7 @@
 
 .auth_container_control{
     width: 100%;
+    animation: down .5s;
 }
 
 .auth_control{

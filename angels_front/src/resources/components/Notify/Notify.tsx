@@ -13,7 +13,7 @@ export default function Notify() {
             <Modal
                 hideBackdrop={true}
                 open={notify.open}
-                className="d-flex flex-column align-items-center justify-content-center h-100"
+                className="modal_container_notify d-flex flex-column align-items-center justify-content-center h-100"
             >
                 <div className='geral_notify_container'>
                     <div className='geral_notify_control m-3'>

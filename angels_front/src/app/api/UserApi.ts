@@ -9,9 +9,9 @@ export const UserApi = (token: string) => {
         if (token) {
             const getUser = async () => {
                 try {
-                    const res = await HttpAuth("/auth/user")
+                    const res = await HttpAuth("/auth/user");
 
-                    if(res){
+                    if(res.data){
                         setUserInfo(res.data);
                         setIsLogged(true);
                     }

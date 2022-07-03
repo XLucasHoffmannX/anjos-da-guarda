@@ -5,6 +5,7 @@
   --white: #fff;
   --green: #04D361;
   --purple-overshadowed: #D4C2FF;
+  --white-back: #F5F7FB;
 }
 
 * {
@@ -67,4 +68,17 @@ body {
 input{
   outline: none;
   border: 0;
+}
+
+ul, ol{
+  list-style: none;
+  margin: 0 !important;
+}
+
+#container_app{
+  height: 100vh;
+  width: 100vw;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  overflow: auto;
 }

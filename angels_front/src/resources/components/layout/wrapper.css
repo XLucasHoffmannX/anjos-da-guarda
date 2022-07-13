@@ -78,3 +78,41 @@
     background: var(--white-back);
     z-index: 111;
 }
+
+/* top_box */
+.top_box{
+    margin-top: 1rem;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top_box_title{
+    margin-left: 1rem;
+}
+
+.top_box_user_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* .top_box_user_container{
+    border: 1px solid red;
+
+} */
+
+/* .top_box_user_avatar{
+    border: 1px solid red;
+
+}
+ */
+.top_box_notification{
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.top_box_notification svg{
+    font-size: 24px;
+}

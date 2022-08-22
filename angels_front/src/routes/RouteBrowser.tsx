@@ -28,7 +28,7 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => (
 export default function RouteBrowser() {
     const state: any = useContext(ContextState);
 
-    console.log(state);
+    console.log(state);c
 
     return (
         <RouterApp>

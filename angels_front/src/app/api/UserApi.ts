@@ -3,7 +3,7 @@ import { HttpAuth } from './Http';
 
 export const UserApi = (token: string) => {
     const [isLogged, setIsLogged] = useState(false);
-    const [userInfo, setUserInfo] = useState([]);
+    const [userData, setUserData] = useState([]);
 
     useEffect(() => {
         if (token) {
@@ -12,7 +12,7 @@ export const UserApi = (token: string) => {
                     const res = await HttpAuth("/auth/user");
 
                     if(res.data){
-                        setUserInfo(res.data);
+                        setUserData(res.data);
                         setIsLogged(true);
                     }
                 } catch (err) {
@@ -24,7 +24,7 @@ export const UserApi = (token: string) => {
     }, [token])
 
     return {
-        userInfo: [userInfo, setUserInfo],
+        userInfo: [userData, setUserData],
         isLogged: [isLogged, setIsLogged]
     }
 }

@@ -11,14 +11,29 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
     /**
-     * Método que retorna toda a informação do usuário logado
-     * GET /api/auth/user
-    */
-    public function authUser()
+     * Realiza autenticação
+     * POST /api/auth
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function login(Request $request)
     {
-        $user = Auth::user();
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
 
-        return $user;
+            $token = $user->createToken('access')->accessToken;
+
+            $cookie = cookie('jwt', $token, 3600);
+
+            return response([
+                'token' => $token,
+            ])->withCookie($cookie);
+        }
+
+        return response([
+            'error' => 'Invalid Credentials!',
+        ], Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -35,27 +50,13 @@ class AuthController extends Controller
     }
 
     /**
-     * Método para autorização de usuario e client oauth2
-     * POST /api/auth/login
-     *
-     * @param Request $request
+     * Método que retorna toda a informação do usuário logado
+     * GET /api/auth/user
     */
-    public function login(Request $request)
+    public function authUser()
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $user = Auth::user();
+        $user = Auth::user();
 
-            $token = $user->createToken('access')->accessToken;
-
-            $cookie = cookie('jwt', $token, 3600);
-
-            return response([
-                'access' => $token
-            ])->withCookie($cookie);
-        }
-
-        return response([
-            'error' => 'Invalid credentials provided'
-        ], Response::HTTP_UNAUTHORIZED);
+        return $user;
     }
 }

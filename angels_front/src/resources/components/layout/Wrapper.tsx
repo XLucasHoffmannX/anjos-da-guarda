@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { Avatar, MenuItem, Menu, Box, Badge } from '@material-ui/core';
 import { ContextState } from '../../../context/DataProvider';
 import { MdOutlineNotifications } from 'react-icons/md';
+import { HttpAuth } from '../../../app/api/Http';
 
 type Props = {
     children?: React.ReactNode,
@@ -15,16 +16,30 @@ type Props = {
 
 const Wrapper: React.FC<Props> = ({ children, title }: any) => {
     const state: any = useContext(ContextState);
-    const [userInfo] = state.userApi.userInfo;
-
+    const [userData, setUserData] = state.userApi.userInfo;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    React.useEffect(() => {
+        const getUser = async () => {
+            try {
+                const res = await HttpAuth.get("/auth/user");
+
+                setUserData(res.data);
+            } catch (error) {
+                if (error) throw error;
+            }
+        }
+
+        getUser();
+    }, [setUserData]);
 
     return (
         <div className='app_box'>
@@ -41,6 +56,9 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                     </span>
                     <span>
                         <NavLink to="/error" activeClassName='active_list'>Error</NavLink>
+                    </span>
+                    <span>
+                        <NavLink to="/private" activeClassName='active_list'>Area Privada</NavLink>
                     </span>
                 </div>
             </div>
@@ -59,8 +77,8 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                         </div>
                         <div className='top_box_user_avatar'>
                             <Avatar
-                                alt={userInfo.name}
-                                src={userInfo.image}
+                                alt={userData.name && userData.name}
+                                src={userData.image && userData.image}
                                 id="fade-button"
                                 aria-controls={open ? 'fade-menu' : undefined}
                                 aria-haspopup="true"
@@ -79,7 +97,13 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                                 style={{ marginTop: "2.7rem" }}
                             >
                                 <MenuItem onClick={handleClose}>Meu Perfil</MenuItem>
-                                <MenuItem onClick={handleClose}>Sair</MenuItem>
+                                <MenuItem onClick={async () => {
+                                    handleClose();
+                                    await HttpAuth.post("/auth/logout").then(res => {
+                                        if (res.status === 200) window.location.href = '/'
+                                    });
+                                    localStorage.removeItem('primaryLogin');
+                                }}>Sair</MenuItem>
                             </Menu>
                         </div>
                     </div>

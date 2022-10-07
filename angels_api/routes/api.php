@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'appStatus']);
 
 Route::prefix('auth')->group(function () {
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/login', [AuthController::class, 'login']);
 });
 

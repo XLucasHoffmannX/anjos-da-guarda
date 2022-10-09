@@ -1,0 +1,116 @@
+.user_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* box_user_config */
+.box_user_config {
+    width: min(650px, 90%);
+    border-radius: 8px;
+    background: var(--white);
+
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--grey-border);
+}
+
+.box_user_config_avatar {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box_user_config_avatar_image {
+    border: 1px solid var(--purple-secondary);
+    border-radius: 50%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.box_user_config_info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.box_user_config_info_title h2 {
+    color: var(--black);
+    margin: 0;
+    font-size: 28px;
+}
+
+.box_user_config_info_title span {
+    color: var(--grey-secondary-font);
+}   
+
+.box_user_config_info_card{
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    background: var(--white-secondary);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1.5rem 1rem;
+}
+
+.box_user_config_info_card span{
+    color: var(--grey-font);
+}
+
+.box_user_config_info_card_edit{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/*  */
+
+.box_user_archives{
+    width: min(650px, 90%);
+}
+
+.box_user_archives_card{
+    border: 1px solid red;
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    border: 1px solid var(--grey-border);
+    padding: 1rem;
+    background: var(--white);
+}
+
+.box_user_archives_filter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn_confirm{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(200px, 100%);
+}
+
+.box_user_archives_table{
+    margin-top: 1rem;
+}
+
+.table_archives{
+    background: var(--white-back);
+}
+
+.table_archives th{
+    color: var(--purple);
+}

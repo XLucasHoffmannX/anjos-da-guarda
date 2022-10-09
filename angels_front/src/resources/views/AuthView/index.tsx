@@ -3,15 +3,13 @@ import { ContextState } from '../../../context/DataProvider';
 import { AuthInterface } from '../../../types/interfaces/auth.interface.';
 import BackAuth from '../../assets/images/back-image-auth.svg';
 import TitleAuth from '../../assets/images/title-auth.svg';
-import { Auth } from '../../../app/api/Auth';
 
 import './auth.css';
 import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
 import { Redirect } from 'react-router-dom';
-import { Http, HttpAuth } from '../../../app/api/Http';
+import { Http } from '../../../app/api/Http';
 
 export default function AuthView() {
-    const auth = new Auth();
     const state: any = useContext(ContextState);
     const [open, setOpen] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -32,8 +30,8 @@ export default function AuthView() {
         await Http.post("/auth/login", {
             ...login
         }).then((res) => {
+            if (res.data) localStorage.setItem('primaryLogin', 'true');
             if (res.status === 201 || res.status === 200) setSuccess(true);
-            if (res.data) return localStorage.setItem('primaryLogin', 'true');
         }).catch(error => {
             setNotify({ open: true, message: 'Ocorreu um erro ao entrar!', success: false });
             if (error) throw error;

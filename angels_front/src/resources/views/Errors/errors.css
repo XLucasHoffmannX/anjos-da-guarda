@@ -1,0 +1,25 @@
+.notFound{
+    padding: 1rem;
+    animation: up 1s;
+}
+
+.notFound_logo img{
+    width: 100px;
+}
+
+.notFound_logo h1{
+    text-align: center;
+}
+
+.notFound span{
+    color: var(--black-title);
+    width: min(450px, 90%);
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.notFound span a{
+    color: var(--purple-first);
+    text-decoration: underline;
+}

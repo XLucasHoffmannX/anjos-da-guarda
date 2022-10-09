@@ -8,6 +8,7 @@ import { Avatar, MenuItem, Menu, Box, Badge } from '@material-ui/core';
 import { ContextState } from '../../../context/DataProvider';
 import { MdOutlineNotifications } from 'react-icons/md';
 import { HttpAuth } from '../../../app/api/Http';
+import { Link } from 'react-router-dom';
 
 type Props = {
     children?: React.ReactNode,
@@ -32,7 +33,9 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
             try {
                 const res = await HttpAuth.get("/auth/user");
 
-                setUserData(res.data);
+                if (res.data) {
+                    setUserData(res.data);
+                }
             } catch (error) {
                 if (error) throw error;
             }
@@ -44,22 +47,38 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
     return (
         <div className='app_box'>
             <div className='nav_box'>
-                <div className='nav_box_title mt-4'>
-                    <img src={LogoAngels} alt="logo" />
-                    <div className='close_fixe'>
-                        <MdOutlineChevronLeft />
+                <div className='nav_box_top'>
+                    <div className='nav_box_title mt-4'>
+                        <img src={LogoAngels} alt="logo" />
+                        <div className='close_fixe'>
+                            <MdOutlineChevronLeft />
+                        </div>
+                    </div>
+                    <div className='nav_list'>
+                        <span>
+                            <NavLink to="/home" activeClassName='active_list'>Dashboard</NavLink>
+                        </span>
+                        <span>
+                            <NavLink to="/users" activeClassName='active_list'>Usuários</NavLink>
+                        </span>
+                        <span>
+                            <NavLink to="/perfil" activeClassName='active_list'>Meu Perfil</NavLink>
+                        </span>
                     </div>
                 </div>
-                <div className='nav_list'>
-                    <span>
-                        <NavLink to="/home" activeClassName='active_list'>Dashboard</NavLink>
-                    </span>
-                    <span>
-                        <NavLink to="/error" activeClassName='active_list'>Error</NavLink>
-                    </span>
-                    <span>
-                        <NavLink to="/private" activeClassName='active_list'>Area Privada</NavLink>
-                    </span>
+                <div className='nav_box_bottom'>
+                    <div className='nav_list'>
+                        <span>
+                            <NavLink
+                                onClick={async () => {
+                                    await HttpAuth.post("/auth/logout").then(res => {
+                                        if (res.status === 200) window.location.href = '/'
+                                    });
+                                    localStorage.removeItem('primaryLogin');
+                                }}
+                                to="/logout" activeClassName='active_list'>Sair</NavLink>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div className='dash_box'>
@@ -96,7 +115,9 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                                 onClose={handleClose}
                                 style={{ marginTop: "2.7rem" }}
                             >
-                                <MenuItem onClick={handleClose}>Meu Perfil</MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <Link style={{textDecoration: 'none', color: '#000'}} to="/perfil">Meu Perfil</Link>
+                                </MenuItem>
                                 <MenuItem onClick={async () => {
                                     handleClose();
                                     await HttpAuth.post("/auth/logout").then(res => {
@@ -108,10 +129,12 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                         </div>
                     </div>
                 </div>
+                <div className='children_box container-fluid"'>
+                    {children}
+                </div>
             </div>
         </div>
     )
 }
-
 
 export default Wrapper;

@@ -17,6 +17,7 @@ class AddUsersTable extends Migration
             $table->string('cpf')->nullable();
             $table->string('description')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('activated')->default(1);
         });
     }
 

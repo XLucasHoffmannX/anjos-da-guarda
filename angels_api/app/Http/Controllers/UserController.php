@@ -77,7 +77,7 @@ class UserController extends Controller
 
             return response(null, Response::HTTP_OK);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage()]);
+            return response()->json(["msg" => $e->getMessage()]);
         }
     }
 }

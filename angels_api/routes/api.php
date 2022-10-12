@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::prefix('auth')->group(function () {
         Route::get('/user', [AuthController::class, 'authUser']);
     });
+
+    Route::post('/upload-image', [ArchiveController::class, 'imageUpload']);
+    Route::post('/delete-image', [ArchiveController::class, 'imageDelete']);
 
     Route::apiResource('/user', UserController::class);
 });

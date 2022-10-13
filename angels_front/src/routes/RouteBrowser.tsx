@@ -13,6 +13,7 @@ const AuthView = lazy(() => import('../resources/views/AuthView'));
 const Home = lazy(() => import('../resources/views/Home'));
 const User = lazy(() => import('../resources/views/User'));
 const Users = lazy(() => import('../resources/views/Users'));
+const CreateUser = lazy(() => import('../resources/views/Users/create'));
 
 
 export default function RouteBrowser() {
@@ -32,6 +33,7 @@ export default function RouteBrowser() {
                     <PrivateRoute path="/home"> <Home /> </PrivateRoute>
                     <PrivateRoute path="/perfil"> <User /> </PrivateRoute>
                     <PrivateRoute path="/users"> <Users /> </PrivateRoute>
+                    <PrivateRoute path="/create-user"> <CreateUser /> </PrivateRoute>
 
                     <Route path="*" component={NotFound} />
                 </Switch>

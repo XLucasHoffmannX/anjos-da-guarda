@@ -35,7 +35,7 @@ export default function Users() {
         };
 
         getUsers();
-    }, [page, setPage, setlastPage, lastPage, cb, setCb, search])
+    }, [page, setPage, setlastPage, lastPage, cb, setCb, search]);
 
     return (
         <Wrapper title={'Usuários'}>
@@ -74,7 +74,7 @@ export default function Users() {
                                         <td className='action_table_group'>
                                             <div className='btn-group mr-2'>
                                                 <Link to="#" className='btn btn-sm btn-outline-primary'>Editar</Link>
-                                                <Link to={`/users/a/edit`} className='btn btn-sm btn-outline-danger ms-2'>Apagar</Link>
+                                                <Link to="#" className='btn btn-sm btn-outline-danger ms-2'>Apagar</Link>
                                             </div>
                                         </td>
                                     </tr>

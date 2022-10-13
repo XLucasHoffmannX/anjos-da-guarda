@@ -7,6 +7,7 @@ import { HttpAuth } from '../../../app/api/Http';
 import { CircularProgress } from '@material-ui/core';
 import Paginator from '../../components/Paginator';
 import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
+import Delete from '../../components/Delete';
 
 export default function Users() {
     const [users, setUsers] = React.useState<any[]>([]);
@@ -74,7 +75,7 @@ export default function Users() {
                                         <td className='action_table_group'>
                                             <div className='btn-group mr-2'>
                                                 <Link to="#" className='btn btn-sm btn-outline-primary'>Editar</Link>
-                                                <Link to="#" className='btn btn-sm btn-outline-danger ms-2'>Apagar</Link>
+                                                <Delete id={user.id} titleMessage={user.name} cb={setCb} endpoint={'user'}/>
                                             </div>
                                         </td>
                                     </tr>

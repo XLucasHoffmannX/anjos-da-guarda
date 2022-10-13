@@ -47,7 +47,7 @@ export default function CreateUser() {
         });
     }
 
-    if (redirect) return <Redirect to={'/users'} />; 
+    if (redirect) return <Redirect to={'/users'} />;
 
     return (
         <Wrapper title='Criar Usuário'>

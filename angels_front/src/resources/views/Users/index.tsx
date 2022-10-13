@@ -74,7 +74,7 @@ export default function Users() {
                                         <td>{user.description} - {user.role_id}</td>
                                         <td className='action_table_group'>
                                             <div className='btn-group mr-2'>
-                                                <Link to="#" className='btn btn-sm btn-outline-primary'>Editar</Link>
+                                                <Link to={`/edit-user/${user.id}`} className='btn btn-sm btn-outline-primary'>Editar</Link>
                                                 <Delete id={user.id} titleMessage={user.name} cb={setCb} endpoint={'user'}/>
                                             </div>
                                         </td>

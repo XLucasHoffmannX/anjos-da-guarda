@@ -6,6 +6,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -20,11 +21,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate();
+        $userFilter = User::query();
 
-        return response($users);
+        if (request('term')) {
+            $userFilter->where('name', 'Like', '%' . request('term') . '%');
+        }
+
+        return response($userFilter->orderBy('id', 'DESC')->paginate(10));
     }
 
     /**
@@ -35,7 +40,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return response('sem permissao');
+        $user = User::create($request->only('name', 'email', 'description', 'cpf', 'description', 'image', 'role_id')
+            + ["password" => Hash::make($request->password)]);
+
+        return response($user, Response::HTTP_CREATED);
     }
 
     /**
@@ -60,7 +68,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $user->update($request->only('name', 'email', 'description', 'cpf', 'description', 'image', 'role_id')
+            + ["password" => Hash::make($request->password)]);
+
+        return response($user, Response::HTTP_ACCEPTED);
     }
 
     /**

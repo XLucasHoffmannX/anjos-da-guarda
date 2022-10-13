@@ -40,8 +40,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->only('name', 'email', 'description', 'cpf', 'description', 'image', 'role_id')
-            + ["password" => Hash::make($request->password)]);
+        $user = User::create($request->only('name', 'email', 'description', 'cpf', 'description', 'image')
+            + ["password" => Hash::make($request->password)] + ["role_id" => 3]);
 
         return response($user, Response::HTTP_CREATED);
     }

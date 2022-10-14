@@ -62,8 +62,12 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                             <NavLink to="/users" activeClassName='active_list'>Usuários</NavLink>
                         </span>
                         <span>
+                            <NavLink to="/patients" activeClassName='active_list'>Pacientes</NavLink>
+                        </span>
+                        <span>
                             <NavLink to="/perfil" activeClassName='active_list'>Meu Perfil</NavLink>
                         </span>
+
                     </div>
                 </div>
                 <div className='nav_box_bottom'>
@@ -116,7 +120,7 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
                                 style={{ marginTop: "2.7rem" }}
                             >
                                 <MenuItem onClick={handleClose}>
-                                    <Link style={{textDecoration: 'none', color: '#000'}} to="/perfil">Meu Perfil</Link>
+                                    <Link style={{ textDecoration: 'none', color: '#000' }} to="/perfil">Meu Perfil</Link>
                                 </MenuItem>
                                 <MenuItem onClick={async () => {
                                     handleClose();

@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from 'react'
+import React, { SyntheticEvent } from 'react';
 import Wrapper from '../../components/layout/Wrapper';
 import { Link } from 'react-router-dom';
 
@@ -49,9 +49,9 @@ export default function Users() {
                     <Link to="/create-user" className='btn btn-sm btn-outline-primary'>Adicionar Usuário +</Link>
                 </div>
                 <div className='table-responsive'>
-                <span style={{cursor: 'pointer'}} onClick={()=> ordem ? setOrdem(false) : setOrdem(true)}>Ordem <b>{ordem ? 'crescente' : 'decrescente'}</b></span>
-                <span className='m-4'>Página Atual: {page}</span>
-                <span className='m-4'>Quantidade de páginas: {lastPage}</span>
+                    <span style={{ cursor: 'pointer' }} onClick={() => ordem ? setOrdem(false) : setOrdem(true)}>Ordem <b>{ordem ? 'crescente' : 'decrescente'}</b></span>
+                    <span className='m-4'>Página Atual: {page}</span>
+                    <span className='m-4'>Quantidade de páginas: {lastPage}</span>
                     <table className="table table-striped table-sm w-100 mt-2">
                         <thead className='table'>
                             <tr>
@@ -70,14 +70,14 @@ export default function Users() {
                                 users.map(user => (
                                     <tr key={user.id}>
                                         <td>{user.id}</td>
-                                        <td><img className='img-fluid' style={{width: '50px'}} src={user.image} alt={user.name}/></td>
+                                        <td><img className='img-fluid' style={{ width: '50px' }} src={user.image} alt={user.name} /></td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.description} - {user.role_id}</td>
                                         <td className='action_table_group'>
                                             <div className='btn-group mr-2'>
                                                 <Link to={`/edit-user/${user.id}`} className='btn btn-sm btn-outline-primary'>Editar</Link>
-                                                <Delete id={user.id} titleMessage={user.name} cb={setCb} endpoint={'user'}/>
+                                                <Delete id={user.id} titleMessage={user.name} cb={setCb} endpoint={'user'} />
                                             </div>
                                         </td>
                                     </tr>

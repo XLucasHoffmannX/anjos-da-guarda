@@ -78,6 +78,10 @@
     border-left: 5px solid var(--white);
 }
 
+.drop_nav{
+    margin-left: 1rem;
+}
+
 /* dash_box */
 .dash_box{
     width: 100%;

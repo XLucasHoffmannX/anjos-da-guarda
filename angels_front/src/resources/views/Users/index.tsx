@@ -10,6 +10,7 @@ import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
 import Delete from '../../components/Delete';
 
 export default function Users() {
+    const [ordem, setOrdem] = React.useState(false);
     const [users, setUsers] = React.useState<any[]>([]);
     const [page, setPage] = React.useState(1);
     const [lastPage, setlastPage] = React.useState(1);
@@ -24,7 +25,7 @@ export default function Users() {
     React.useEffect(() => {
         const getUsers = async () => {
             setLoad(true);
-            const res = await HttpAuth.get(`/user?page=${page}&term=${search.term}`);
+            const res = await HttpAuth.get(`/user?page=${page}&term=${search.term}&ordem=${ordem ? 'ASC' : 'DESC'}`);
 
             if (res) {
                 setLoad(false);
@@ -36,7 +37,7 @@ export default function Users() {
         };
 
         getUsers();
-    }, [page, setPage, setlastPage, lastPage, cb, setCb, search]);
+    }, [page, setPage, setlastPage, lastPage, cb, setCb, search, ordem]);
 
     return (
         <Wrapper title={'Usuários'}>
@@ -48,7 +49,8 @@ export default function Users() {
                     <Link to="/create-user" className='btn btn-sm btn-outline-primary'>Adicionar Usuário +</Link>
                 </div>
                 <div className='table-responsive'>
-                <span>Página Atual: {page}</span>
+                <span style={{cursor: 'pointer'}} onClick={()=> ordem ? setOrdem(false) : setOrdem(true)}>Ordem <b>{ordem ? 'crescente' : 'decrescente'}</b></span>
+                <span className='m-4'>Página Atual: {page}</span>
                 <span className='m-4'>Quantidade de páginas: {lastPage}</span>
                     <table className="table table-striped table-sm w-100 mt-2">
                         <thead className='table'>

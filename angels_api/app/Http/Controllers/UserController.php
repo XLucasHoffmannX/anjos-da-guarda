@@ -24,12 +24,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $userFilter = User::query();
+        $ordem = 'DESC';
 
         if (request('term')) {
             $userFilter->where('name', 'Like', '%' . request('term') . '%');
         }
 
-        return response($userFilter->orderBy('id', 'DESC')->paginate(10));
+        if (request('ordem')) {
+            $ordem = $request->ordem;
+        }
+
+        return response($userFilter->orderBy('id', $ordem)->paginate(10));
     }
 
     /**

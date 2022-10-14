@@ -85,26 +85,26 @@ export default function CreateUser() {
                         <h2 className='form_section mt-2'>Imagem de Perfil</h2>
                         <hr />
                         <div className='div_form_image mb-4'>
-                            <Avatar className='my-2 p-2' style={{ width: '100px', height: '100px', textAlign: 'center' }} src={user.image && !id ? `http://angels.api${user.image}` : user.image}></Avatar>
+                            <Avatar className='my-2 p-2' style={{ width: '100px', height: '100px', textAlign: 'center', border: '1px solid var(--grey-border)' }} src={user.image && !id ? `http://angels.api${user.image}` : user.image}></Avatar>
                             <input className='form-control w-50' type="file" onChange={e => upload(e.target)} />
                         </div>
                         <h2 className='form_section'>Dados gerais</h2>
                         <hr />
                         <div className='div_form'>
                             <label className="form-label">Informe nome do usuário</label>
-                            <input type="text" className='form-control' placeholder='Nome' name='name' value={user.name} onChange={changeInput} required />
+                            <input type="text" className='form-control' placeholder='Nome' name='name' value={user.name || ''} onChange={changeInput} required />
                         </div>
                         <div className='div_form'>
                             <label className="form-label">Informe email</label>
-                            <input type="email" className='form-control' name='email' placeholder='email@email.com' value={user.email} onChange={changeInput} required />
+                            <input type="email" className='form-control' name='email' placeholder='email@email.com' value={user.email || ''} onChange={changeInput} required />
                         </div>
                         <div className='div_form'>
                             <label className="form-label">CPF</label>
-                            <input type="text" className='form-control' placeholder='Sem pontos ou traços' name='cpf' value={user.cpf} onChange={changeInput} required />
+                            <input type="text" className='form-control' placeholder='Sem pontos ou traços' name='cpf' value={user.cpf || ''} onChange={changeInput} required />
                         </div>
                         <div className='div_form'>
                             <label className="form-label">Informe atribuição</label>
-                            <input type="text" className='form-control' placeholder='Ex: Auxiliar' name='description' value={user.description} onChange={changeInput} required />
+                            <input type="text" className='form-control' placeholder='Ex: Auxiliar' name='description' value={user.description || ''} onChange={changeInput} required />
                         </div>
                         {
                             !id &&
@@ -113,7 +113,7 @@ export default function CreateUser() {
                                 <hr />
                                 <div className='div_form'>
                                     <label className="form-label">Senha</label>
-                                    <input type="password" className='form-control' placeholder='Senha forte...' name='password' value={user.password} onChange={changeInput} required />
+                                    <input type="password" className='form-control' placeholder='Senha forte...' name='password' value={user.password || ''} onChange={changeInput} required />
                                 </div>
                             </>
                         }

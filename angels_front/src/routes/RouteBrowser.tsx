@@ -39,6 +39,7 @@ export default function RouteBrowser() {
                     <PrivateRoute path="/edit-user/:id"> <CreateUser /> </PrivateRoute>
                     <PrivateRoute path="/patients"> <Patients /> </PrivateRoute>
                     <PrivateRoute path="/create-patient"> <CreatePatient /> </PrivateRoute>
+                    <PrivateRoute path="/edit-patient/:id"> <CreatePatient /> </PrivateRoute>
 
 
                     <Route path="*" component={NotFound} />

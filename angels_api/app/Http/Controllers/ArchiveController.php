@@ -25,7 +25,7 @@ class ArchiveController extends Controller
 
                 if ($upload) {
                     return response()->json([
-                        "url" => Storage::url($upload),
+                        "url" => env("APP_URL") . Storage::url($upload),
                         "name" => $nameFile
                     ], Response::HTTP_ACCEPTED);
                 }

@@ -13,7 +13,7 @@ interface Params {
 
 export default function CreateUser() {
     const { id } = useParams<Params>();
-
+    const [image, setImage] = React.useState<any>();
     const changeInput = (e: SyntheticEvent) => changeInputRecursive(e, user, setUser);
     const [redirect, setRedirect] = React.useState(false);
     const [user, setUser] = React.useState({
@@ -45,18 +45,19 @@ export default function CreateUser() {
 
         data.append('imageFile', e.files[0]);
 
+        setImage(e.files[0])
+
         const res = await HttpAuth.post('/upload-image', data);
 
         if (res.status === 200 || res.status === 202) {
             setUser((prev: any) => { return { ...prev, image: res.data.url } });
-            console.log(res.data.url);
-            console.log(user);
         }
     }
 
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
-        if(id){
+        if (id) {
+            setUser((prev: any) => { return { ...prev, image: image } });
             await HttpAuth.put(`/user/${id}`, {
                 ...user
             }).then(res => {
@@ -64,7 +65,7 @@ export default function CreateUser() {
             }).catch((error) => {
                 if (error) alert(error);
             });
-        }else{
+        } else {
             await HttpAuth.post('/user', {
                 ...user
             }).then(res => {
@@ -85,8 +86,14 @@ export default function CreateUser() {
                         <h2 className='form_section mt-2'>Imagem de Perfil</h2>
                         <hr />
                         <div className='div_form_image mb-4'>
-                            <Avatar className='my-2 p-2' style={{ width: '100px', height: '100px', textAlign: 'center', border: '1px solid var(--grey-border)' }} src={user.image && !id ? `http://angels.api${user.image}` : user.image}></Avatar>
-                            <input className='form-control w-50' type="file" onChange={e => upload(e.target)} />
+                            {
+                                id ?
+                                <Avatar className='my-2' style={{ width: '100px', height: '100px', textAlign: 'center', border: '1px solid var(--grey-border)' }} src={id && !image ? user.image : URL.createObjectURL(image)}></Avatar>
+                                :
+
+                                <Avatar className='my-2' style={{ width: '100px', height: '100px', textAlign: 'center', border: '1px solid var(--grey-border)' }} src={image && URL.createObjectURL(image)}></Avatar>
+                            }
+                            <input className='form-control w-50' name="image" type="file" onChange={e => upload(e.target)} />
                         </div>
                         <h2 className='form_section'>Dados gerais</h2>
                         <hr />
@@ -118,7 +125,7 @@ export default function CreateUser() {
                             </>
                         }
                         <div className='div_form d-flex flex-row-reverse'>
-                            <button className='btn btn-success mt-2'>{!id ? 'Cadastrar usuário': 'Editar usuário'}</button>
+                            <button className='btn btn-success mt-2'>{!id ? 'Cadastrar usuário' : 'Editar usuário'}</button>
                         </div>
                     </form>
                 </div>

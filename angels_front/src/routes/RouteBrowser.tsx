@@ -15,6 +15,7 @@ const User = lazy(() => import('../resources/views/User'));
 const Users = lazy(() => import('../resources/views/Users'));
 const CreateUser = lazy(() => import('../resources/views/Users/create'));
 const Patients = lazy(() => import('../resources/views/Patients'));
+const CreatePatient = lazy(() => import('../resources/views/Patients/create'));
 
 
 export default function RouteBrowser() {
@@ -37,6 +38,7 @@ export default function RouteBrowser() {
                     <PrivateRoute path="/create-user"> <CreateUser /> </PrivateRoute>
                     <PrivateRoute path="/edit-user/:id"> <CreateUser /> </PrivateRoute>
                     <PrivateRoute path="/patients"> <Patients /> </PrivateRoute>
+                    <PrivateRoute path="/create-patient"> <CreatePatient /> </PrivateRoute>
 
 
                     <Route path="*" component={NotFound} />

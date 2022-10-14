@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Patient;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller
+class PatientController extends Controller
 {
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,18 +17,18 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $userFilter = User::query();
+        $patientFilter = Patient::query();
         $ordem = 'DESC';
 
         if (request('term')) {
-            $userFilter->where('name', 'Like', '%' . request('term') . '%');
+            $patientFilter->where('name', 'Like', '%' . request('term') . '%');
         }
 
         if (request('ordem')) {
             $ordem = $request->ordem;
         }
 
-        return response($userFilter->orderBy('id', $ordem)->paginate(10));
+        return response($patientFilter->orderBy('id', $ordem)->paginate(10));
     }
 
     /**
@@ -45,9 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->only('name', 'email', 'description', 'cpf', 'description', 'image'));
-
-        return response($user, Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -58,9 +50,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $userFind = User::find($id);
+        $patientFind = Patient::find($id);
 
-        return response($userFind);
+        return response($patientFind);
     }
 
     /**
@@ -72,11 +64,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-
-        $user->update($request->only('name', 'email', 'description', 'cpf', 'description', 'image', 'role_id'));
-
-        return response($user, Response::HTTP_ACCEPTED);
+        //
     }
 
     /**
@@ -89,7 +77,7 @@ class UserController extends Controller
     {
         try {
             /* error model, query builder ok */
-            DB::table('users')->where('id', $id)->delete();
+            DB::table('patients')->where('id', $id)->delete();
 
             return response(null, Response::HTTP_OK);
         } catch (Exception $e) {

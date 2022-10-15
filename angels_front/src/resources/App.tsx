@@ -11,7 +11,7 @@ import Notify from './components/Notify/Notify';
 
 function App() {
   return (
-    <div id='container_app'>
+    <div className='container_app'>
       <DataProvider>
         <Notify />
         <RouteBrowser />

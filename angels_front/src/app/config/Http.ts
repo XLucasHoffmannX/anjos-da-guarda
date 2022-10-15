@@ -18,6 +18,7 @@ HttpAuth.interceptors.response.use(res => { return res }, error => {
         if (error.response.status === 401) {
             localStorage.removeItem('primaryLogin');
             Cookies.remove('jwt', { path: "/", domain: "localhost" });
+            Cookies.remove('access-token');
             window.location.replace('/login');
         }
     }

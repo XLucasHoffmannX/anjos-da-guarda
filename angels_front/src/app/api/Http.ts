@@ -2,11 +2,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export const Http = axios.create({
-    baseURL: process.env.REACT_APP_URL_ROOT,
+    baseURL: process.env.REACT_APP_API_KEY,
 });
 
 export const HttpAuth = axios.create({
-    baseURL: process.env.REACT_APP_URL_ROOT
+    baseURL: process.env.REACT_APP_API_KEY
 })
 
 /* request */

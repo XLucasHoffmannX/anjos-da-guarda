@@ -6,6 +6,7 @@ import PrivateRoute from '../app/hooks/PrivateRoute';
 import RedirectLogged from '../resources/views/RedirectLogged';
 import TestPrivate from '../resources/views/private/TestPrivate';
 import { NotFound, Revoked } from '../resources/views/Errors/index.';
+import Nav from '../resources/components/Nav';
 
 
 // lazy components
@@ -23,6 +24,7 @@ export default function RouteBrowser() {
     //console.log(state.userApi);
     return (
         <RouterApp>
+            <Nav />
             <Suspense fallback={<div><div className="vh-100 d-flex justify-content-center align-items-center"><CircularProgress /></div></div>}>
                 <Switch>
                     <Route exact path="/" component={RedirectLogged} />

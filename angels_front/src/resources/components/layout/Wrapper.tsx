@@ -1,9 +1,6 @@
 import React, { useContext } from 'react';
 
 import './wrapper.css';
-import LogoAngels from '../../assets/images/logo.svg';
-import { MdOutlineChevronLeft } from 'react-icons/md';
-import { NavLink } from 'react-router-dom';
 import { Avatar, MenuItem, Menu, Box, Badge } from '@material-ui/core';
 import { ContextState } from '../../../context/DataProvider';
 import { MdOutlineNotifications } from 'react-icons/md';
@@ -46,45 +43,6 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
 
     return (
         <div className='app_box'>
-            <div className='nav_box'>
-                <div className='nav_box_top'>
-                    <div className='nav_box_title mt-4'>
-                        <img src={LogoAngels} alt="logo" />
-                        <div className='close_fixe'>
-                            <MdOutlineChevronLeft />
-                        </div>
-                    </div>
-                    <div className='nav_list'>
-                        <span>
-                            <NavLink to="/home" activeClassName='active_list'>Dashboard</NavLink>
-                        </span>
-                        <span>
-                            <NavLink to="/users" activeClassName='active_list'>Usuários</NavLink>
-                        </span>
-                        <span>
-                            <NavLink to="/patients" activeClassName='active_list'>Pacientes</NavLink>
-                        </span>
-                        <span>
-                            <NavLink to="/perfil" activeClassName='active_list'>Meu Perfil</NavLink>
-                        </span>
-
-                    </div>
-                </div>
-                <div className='nav_box_bottom'>
-                    <div className='nav_list'>
-                        <span>
-                            <NavLink
-                                onClick={async () => {
-                                    await HttpAuth.post("/auth/logout").then(res => {
-                                        if (res.status === 200) window.location.href = '/'
-                                    });
-                                    localStorage.removeItem('primaryLogin');
-                                }}
-                                to="/logout" activeClassName='active_list'>Sair</NavLink>
-                        </span>
-                    </div>
-                </div>
-            </div>
             <div className='dash_box'>
                 <div className='top_box'>
                     <div className='top_box_title'>

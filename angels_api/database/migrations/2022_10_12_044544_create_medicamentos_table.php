@@ -16,6 +16,7 @@ class CreateMedicamentosTable extends Migration
         Schema::create('medicamentos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('description')->nullable()->default('Deve ser anexado na ficha!');
             $table->bigInteger('user_created');
             $table->bigInteger('patient_owner');
             $table->integer('qtd_amount');

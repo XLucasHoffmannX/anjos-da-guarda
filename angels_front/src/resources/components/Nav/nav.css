@@ -1,5 +1,5 @@
 /* nav_box */
-.nav_box{
+.nav_box {
     width: 270px;
     background: var(--purple);
     display: flex;
@@ -9,11 +9,11 @@
     z-index: 222;
 }
 
-.nav_box_top, .nav_box_bottom{
+.nav_box_top, .nav_box_bottom {
     width: 100%;
 }
 
-.nav_box_title{
+.nav_box_title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,11 +21,28 @@
     margin-left: .5rem;
 }
 
-.nav_box_title img{
+.nav_box_title img {
     width: 150px;
 }
 
-.close_fixe{
+.nav_box_search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .3rem;
+}
+
+.nav_box_search input {
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--grey-border);
+    background: var(--white-back);
+    padding-left: 1rem;
+    margin-bottom: .7rem;
+    width: 100%;
+}
+
+.close_fixe {
     background: var(--white);
     border-radius: 50%;
     width: 20px;
@@ -38,7 +55,7 @@
 }
 
 /* nav_list */
-.accordion_nav{
+.accordion_nav {
     border: none !important;
     background: none !important;
     box-shadow: none !important;
@@ -46,13 +63,13 @@
     margin: 0 !important;
 }
 
-.accordion_nav span{
+.accordion_nav span {
     color: var(--white);
     font-size: 18px;
     font-weight: 600;
 }
 
-.nav_list{
+.nav_list {
     margin-top: 1rem;
     width: 100%;
     display: flex;
@@ -64,7 +81,7 @@
     width: 100%;
 }
 
-.nav_list span a, .accordion_details_nav a{
+.nav_list span a, .accordion_details_nav a {
     width: 100%;
     color: var(--white);
     font-size: 18px;
@@ -77,39 +94,39 @@
     text-decoration: none;
 }
 
-.accordion_details_nav{
+.accordion_details_nav {
     padding: 0;
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
 }
 
-.accordion_details_nav a{
+.accordion_details_nav a {
     text-decoration: none;
 }
 
-.accordion_details_nav a:hover{
+.accordion_details_nav a:hover {
     color: var(--white) !important;
 }
 
-.nav_list span a:hover{
+.nav_list span a:hover {
     background: var(--white-sobre);
 }
 
-.active_list{
+.active_list {
     background: var(--white-sobre);
     border-left: 5px solid var(--white);
 }
 
-.nav_list .desloc{
+.nav_list .desloc {
     margin-left: 1.5rem;
 }
 
-.drop_nav{
+.drop_nav {
     margin-left: 1rem;
 }
 
 /* app_bar */
-.nav_app_bar_box{
+.nav_app_bar_box {
     background: var(--purple) !important;
 }

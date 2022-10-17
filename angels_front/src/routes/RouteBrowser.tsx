@@ -4,7 +4,6 @@ import { ContextState } from '../context/DataProvider';
 import { CircularProgress } from "@material-ui/core";
 import PrivateRoute from '../app/hooks/PrivateRoute';
 import RedirectLogged from '../resources/views/RedirectLogged';
-import TestPrivate from '../resources/views/private/TestPrivate';
 import { NotFound, Revoked } from '../resources/views/Errors/index.';
 import Nav from '../resources/components/Nav';
 import SideBar from '../resources/components/SideBar';
@@ -18,6 +17,8 @@ const Users = lazy(() => import('../resources/views/Users'));
 const CreateUser = lazy(() => import('../resources/views/Users/create'));
 const Patients = lazy(() => import('../resources/views/Patients'));
 const CreatePatient = lazy(() => import('../resources/views/Patients/create'));
+const Medicamento = lazy(() => import('../resources/views/Medicamento'));
+const Control = lazy(() => import('../resources/views/Control'));
 
 
 export default function RouteBrowser() {
@@ -33,7 +34,7 @@ export default function RouteBrowser() {
                     <Route exact path="/login" component={AuthView} />
 
                     <PrivateRoute path="/private" roleUser={state} rule={[1]} >
-                        <TestPrivate />
+                        <Home />
                     </PrivateRoute>
 
                     <PrivateRoute path="/home"> <Home /> </PrivateRoute>
@@ -44,6 +45,9 @@ export default function RouteBrowser() {
                     <PrivateRoute path="/patients"> <Patients /> </PrivateRoute>
                     <PrivateRoute path="/create-patient"> <CreatePatient /> </PrivateRoute>
                     <PrivateRoute path="/edit-patient/:id"> <CreatePatient /> </PrivateRoute>
+
+                    <PrivateRoute path="/medicamento"> <Medicamento /> </PrivateRoute>
+                    <PrivateRoute path="/control"> <Control /> </PrivateRoute>
 
 
                     <Route path="*" component={NotFound} />

@@ -11,7 +11,7 @@ import Echo from 'laravel-echo';
 import './patients.css';
 window.Pusher = require('pusher-js')
 
-window.Echo = new Echo({
+/* window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'Sistemakey',
     wsHost: window.location.hostname,
@@ -23,7 +23,7 @@ window.Echo = new Echo({
 window.Echo.channel('eventTest')
     .listen('EventTest', (e: any) => {
         alert(e.mensagem)
-    })
+    }) */
 
 export default function Patients() {
 

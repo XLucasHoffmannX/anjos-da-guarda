@@ -18,12 +18,13 @@ export default function NavItems() {
     const changeInput = (e: SyntheticEvent) => changeInputRecursive(e, search, setSearch);
 
     function searchFilter(arr: any, s: any) {
-        var matches = [], i, key;
+        let matches = [], i, key;
 
         for (i = arr.length; i--;)
-            for (key in arr[i])
+            for (key in arr[i]) {
                 if (arr[i].hasOwnProperty(key) && arr[i][key].indexOf(s) > -1)
-                    matches.push(arr[i]);  // <-- This can be changed to anything
+                    matches.push(arr[i]);
+            }
         return matches;
     };
 
@@ -45,14 +46,14 @@ export default function NavItems() {
                 </div>
                 <div className='nav_list'>
                     {
-                        search.term?
-                            arrayTerm.map((term:any, key:any)=>(
+                        search.term ?
+                            arrayTerm.map((term: any, key: any) => (
                                 <span key={key}>
-                                    <NavLink 
-                                    onClick={()=> search.term = ''}
-                                    to={term.url} activeClassName='active_list'>{term.name}</NavLink>
+                                    <NavLink
+                                        onClick={() => search.term = ''}
+                                        to={term.url} activeClassName='active_list'>{term.name}</NavLink>
                                 </span>
-                            )) 
+                            ))
                             :
                             <>
                                 <span>
@@ -128,7 +129,6 @@ export default function NavItems() {
                                 </span>
                             </>
                     }
-
                 </div>
             </div>
             <div className='nav_box_bottom'>

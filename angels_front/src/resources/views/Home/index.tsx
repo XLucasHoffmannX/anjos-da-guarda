@@ -14,8 +14,6 @@ import { ContextState } from '../../../context/DataProvider';
 export default function Home() {
 	const state:any = useContext(ContextState);
 	const [userData] = state.userApi.userInfo;
-    console.log(userData);
-
 
 	return (
 		<Wrapper title={userData.name} welcome={true}>

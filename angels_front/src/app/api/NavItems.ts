@@ -25,6 +25,6 @@ export const Links = [
     },
     {
         name: 'Pacientes',
-        url: '/patient'
+        url: '/patients'
     },
 ]

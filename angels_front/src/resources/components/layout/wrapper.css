@@ -25,8 +25,14 @@
     justify-content: space-between;
 }
 
-/* .top_box_title{
-} */
+.top_box_title span{
+    margin-right: .25rem;
+    cursor: pointer;
+} 
+
+.top_box_title span:hover{
+    color: var(--purple-secondary);
+}
 
 .top_box_user_container{
     display: flex;

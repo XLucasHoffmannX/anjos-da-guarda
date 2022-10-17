@@ -5,7 +5,8 @@ import { Avatar, MenuItem, Menu, Box, Badge } from '@material-ui/core';
 import { ContextState } from '../../../context/DataProvider';
 import { MdOutlineNotifications } from 'react-icons/md';
 import { HttpAuth } from '../../../app/api/Http';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { HiChevronLeft } from 'react-icons/hi';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
@@ -16,9 +17,9 @@ type Props = {
 }
 
 const Wrapper: React.FC<Props> = ({ children, title, welcome }: any) => {
+    let history = useHistory();
     const state: any = useContext(ContextState);
     const [userData, setUserData] = state.userApi.userInfo;
-    const [currentDate, setCurrentDate] = React.useState(new Date())
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -57,7 +58,10 @@ const Wrapper: React.FC<Props> = ({ children, title, welcome }: any) => {
                                     <h2 className='title_date'>{moment().locale('pt-br').format('LL')}</h2>
                                 </>
                                 :
-                                <h2>{title}</h2>
+                                <h2 className='d-flex align-items-center justify-content-center'>
+                                    <span className='d-flex align-items-center justify-content-center' onClick={()=> history.goBack()} title="Voltar página anterior"><HiChevronLeft /></span>
+                                    {title}
+                                </h2>
                         }
                     </div>
                     <div className='top_box_user_container'>

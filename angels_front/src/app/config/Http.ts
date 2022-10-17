@@ -15,7 +15,7 @@ export const HtppAuth = axios.create({
 
 HttpAuth.interceptors.response.use(res => { return res }, error => {
     if (error.resonse) {
-        if (error.response.status === 401) {
+        if (error.response.status === 401 || error.response.status === 500) {
             localStorage.removeItem('primaryLogin');
             Cookies.remove('jwt', { path: "/", domain: "localhost" });
             Cookies.remove('access-token');

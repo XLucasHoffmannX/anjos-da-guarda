@@ -19,9 +19,9 @@ HttpAuth.interceptors.request.use(
 );
 
 /* response */
-HttpAuth.interceptors.response.use( res => {return res}, error=>{
-    if(error.response){
-        if(error.response.status === 401) {
+HttpAuth.interceptors.response.use(res => { return res }, error => {
+    if (error.response) {
+        if (error.response.status === 401 || error.response.status === 500) {
             Cookies.remove('access-token');
 
             window.location.replace('login');

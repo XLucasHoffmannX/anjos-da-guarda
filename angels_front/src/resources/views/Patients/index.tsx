@@ -6,10 +6,27 @@ import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
 import Delete from '../../components/Delete';
 import Wrapper from '../../components/layout/Wrapper'
 import Paginator from '../../components/Paginator';
+import Echo from 'laravel-echo';
 
 import './patients.css';
+window.Pusher = require('pusher-js')
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'Sistemakey',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    disableStats: true
+})
+
+window.Echo.channel('eventTest')
+    .listen('EventTest', (e: any) => {
+        alert(e.mensagem)
+    })
 
 export default function Patients() {
+
     const [ordem, setOrdem] = React.useState(false);
     const [patients, setPatients] = React.useState<any[]>([]);
     const [page, setPage] = React.useState(1);

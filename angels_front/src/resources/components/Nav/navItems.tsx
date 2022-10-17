@@ -43,6 +43,20 @@ export default function NavItems() {
                         </Accordion>
                     </span>
                     <span>
+                        <Accordion className='accordion_nav'>
+                            <AccordionSummary
+                                expandIcon={<MdOutlineChevronLeft style={{ rotate: '-90deg' }} />}
+                            >
+                                <span>Monitoramento Diário</span>
+                            </AccordionSummary >
+                            <AccordionDetails className='accordion_details_nav'>
+                                <NavLink to="/m" activeClassName='active_list'>Monitoramento</NavLink>
+                                <NavLink to="/m1" activeClassName='active_list'>Medicamentos</NavLink>
+                                <NavLink to="/m2" activeClassName='active_list'>Controle Diário</NavLink>
+                            </AccordionDetails>
+                        </Accordion>
+                    </span>
+                    <span>
                         <NavLink to="/perfil" activeClassName='active_list'>Meu Perfil</NavLink>
                     </span>
 

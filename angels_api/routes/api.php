@@ -15,6 +15,10 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+Route::get('send', function () {
+    return event(new \App\Events\EventTest('palmeiras não tem mundial'));
+});
+
 /**
  * Rotas autenticadas
  */

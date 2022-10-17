@@ -76,8 +76,8 @@ export default function Home() {
 				<div className='patients_box'>
 					<h2 className='title_box_h2'>Pacientes</h2>
 					<span className='title_box_sub'>Próximos atendimentos</span>
-					<div className='search_input mt-4' style={{width: "350px"}}>
-						<input type="text" placeholder='Buscar'/>
+					<div className='search_input mt-4' style={{ width: "350px" }}>
+						<input type="text" placeholder='Buscar' />
 					</div>
 					<div className='table-responsive'>
 						<table className="table table-striped table-sm w-100 my-4">

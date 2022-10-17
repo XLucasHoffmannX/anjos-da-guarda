@@ -3,7 +3,7 @@ import Wrapper from '../../components/layout/Wrapper'
 
 export default function Control() {
     return (
-        <Wrapper title={'Controle de Tratamento'}>
+        <Wrapper title={'Control de Tratamento'} welcome={false}>
 
         </Wrapper>
     )

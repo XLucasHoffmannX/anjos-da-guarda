@@ -6,15 +6,19 @@ import { ContextState } from '../../../context/DataProvider';
 import { MdOutlineNotifications } from 'react-icons/md';
 import { HttpAuth } from '../../../app/api/Http';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 type Props = {
     children?: React.ReactNode,
-    title: string
+    title: string,
+    welcome: boolean
 }
 
-const Wrapper: React.FC<Props> = ({ children, title }: any) => {
+const Wrapper: React.FC<Props> = ({ children, title, welcome }: any) => {
     const state: any = useContext(ContextState);
     const [userData, setUserData] = state.userApi.userInfo;
+    const [currentDate, setCurrentDate] = React.useState(new Date())
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,14 +43,22 @@ const Wrapper: React.FC<Props> = ({ children, title }: any) => {
         }
 
         getUser();
-    }, [setUserData]);
+    }, [setUserData])
 
     return (
         <div className='app_box'>
             <div className='dash_box'>
                 <div className='top_box'>
                     <div className='top_box_title'>
-                        <h2>{title}</h2>
+                        {
+                            welcome ?
+                                <>
+                                    <h2>Bem vindo {title}!</h2>
+                                    <h2 className='title_date'>{moment().locale('pt-br').format('LL')}</h2>
+                                </>
+                                :
+                                <h2>{title}</h2>
+                        }
                     </div>
                     <div className='top_box_user_container'>
                         <div className='top_box_notification'>

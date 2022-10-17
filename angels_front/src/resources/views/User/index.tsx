@@ -12,7 +12,7 @@ export default function User() {
 
 
     return (
-        <Wrapper title={'Meu Perfil'}>
+        <Wrapper title={'Meu Perfil'} welcome={false}>
             <div className='user_box'>
                 <div className='box_user_config my-4'>
                     <div className='box_user_config_avatar'>

@@ -57,7 +57,7 @@ export default function Patients() {
     }, [page, setPage, setlastPage, lastPage, cb, setCb, search, ordem]);
 
     return (
-        <Wrapper title='Pacientes'>
+        <Wrapper title='Pacientes' welcome={false}>
             <div className='patients_box'>
                 <div className='patients_box_actions_btns my-4'>
                     <div className='search_input ' style={{ width: "350px" }}>

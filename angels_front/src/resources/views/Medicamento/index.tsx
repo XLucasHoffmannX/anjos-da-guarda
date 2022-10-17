@@ -5,7 +5,7 @@ import './medicamento.css';
 
 export default function Medicamento() {
     return (
-        <Wrapper title={'Medicamentos'}>
+        <Wrapper title={'Medicamentos'} welcome={false}>
 
         </Wrapper>
     )

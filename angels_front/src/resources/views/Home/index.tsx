@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Wrapper from '../../components/layout/Wrapper';
 import { AiOutlineReload } from 'react-icons/ai';
 import { FiUsers } from 'react-icons/fi';
@@ -9,10 +9,16 @@ import { MdOutlineChecklist } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 import './home.css';
+import { ContextState } from '../../../context/DataProvider';
 
 export default function Home() {
+	const state:any = useContext(ContextState);
+	const [userData] = state.userApi.userInfo;
+    console.log(userData);
+
+
 	return (
-		<Wrapper title={'Dashboard'}>
+		<Wrapper title={userData.name} welcome={true}>
 			<div className='home_box'>
 				<div className='cards_home_box'>
 					<div className='card_home_box'>

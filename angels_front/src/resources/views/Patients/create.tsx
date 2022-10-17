@@ -79,7 +79,7 @@ export default function CreateUser() {
     if (redirect) return <Redirect to={'/patients'} />;
 
     return (
-        <Wrapper title={id ? 'Editar Paciente' : 'Criar Paciente'}>
+        <Wrapper title={id ? 'Editar Paciente' : 'Criar Paciente'} welcome={false}>
             <div className='user_box'>
                 <div className='form_control_angels'>
                     <form onSubmit={handleSubmit}>

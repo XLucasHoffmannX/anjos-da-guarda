@@ -40,7 +40,7 @@ export default function Users() {
     }, [page, setPage, setlastPage, lastPage, cb, setCb, search, ordem]);
 
     return (
-        <Wrapper title={'Usuários'}>
+        <Wrapper title={'Usuários'} welcome={false}>
             <div className='users_box'>
                 <div className='users_box_actions_btns my-4'>
                     <div className='search_input ' style={{ width: "350px" }}>

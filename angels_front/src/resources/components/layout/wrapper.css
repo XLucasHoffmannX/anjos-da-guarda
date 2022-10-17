@@ -53,6 +53,11 @@
     font-size: 24px;
 }
 
+.title_date{
+    color: var(--grey-font) !important;
+    font-size: 25px;
+}
+
 /* children_box */
 .children_box{
     width: 100%;

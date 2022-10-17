@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogControlsTable extends Migration
+class CreateFrequencyControlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateLogControlsTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_controls', function (Blueprint $table) {
+        Schema::create('frequency_controls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date');
-            $table->bigInteger('medicamento_id');
-            $table->bigInteger('pacient_id');
-            $table->bigInteger('user_accepeted');
-
             $table->unsignedBigInteger('control_id');
+            $table->time('time');
+            $table->time('time_ended')->nullable();
+            $table->bigInteger('qtd');
+
             $table->foreign('control_id')->references('id')->on('controls')->onDelete('cascade');
 
             $table->timestamps();
@@ -34,6 +33,6 @@ class CreateLogControlsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('log_controls');
+        Schema::dropIfExists('frequency_controls');
     }
 }

@@ -15,11 +15,11 @@ class CreateControlsTable extends Migration
     {
         Schema::create('controls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->timestamp('time_alarm');
             $table->bigInteger('user_created');
             $table->bigInteger('patient_owner');
+            $table->string('description')->nullable();
+            $table->string('type')->default('comprimidos');
+            $table->integer('inventory_qtd');
             $table->boolean('activated')->default(1);
             $table->unsignedBigInteger('medicamento_id');
 

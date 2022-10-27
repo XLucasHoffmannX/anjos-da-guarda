@@ -8,7 +8,6 @@ import { NotFound, Revoked } from '../resources/views/Errors/index.';
 import Nav from '../resources/components/Nav';
 import SideBar from '../resources/components/SideBar';
 
-
 // lazy components
 const AuthView = lazy(() => import('../resources/views/AuthView'));
 const Home = lazy(() => import('../resources/views/Home'));
@@ -19,7 +18,7 @@ const Patients = lazy(() => import('../resources/views/Patients'));
 const CreatePatient = lazy(() => import('../resources/views/Patients/create'));
 const Medicamento = lazy(() => import('../resources/views/Medicamento'));
 const Control = lazy(() => import('../resources/views/Control'));
-
+const CreateControl = lazy(() => import('../resources/views/Control/create'));
 
 export default function RouteBrowser() {
     const state: any = useContext(ContextState);
@@ -48,6 +47,7 @@ export default function RouteBrowser() {
 
                     <PrivateRoute path="/medicamento"> <Medicamento /> </PrivateRoute>
                     <PrivateRoute path="/control"> <Control /> </PrivateRoute>
+                    <PrivateRoute path="/create-control"> <CreateControl /> </PrivateRoute>
 
 
                     <Route path="*" component={NotFound} />

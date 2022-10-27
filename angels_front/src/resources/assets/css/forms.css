@@ -15,6 +15,13 @@
     border-radius: 8px;
 }
 
+
+.form_control_angels form select,
+.form_control_angels form select option
+{
+    cursor: pointer;
+}
+
 .div_form_image{
     display: flex;
     flex-direction: column;

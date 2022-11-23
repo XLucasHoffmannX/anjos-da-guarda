@@ -77,7 +77,7 @@ export default function AuthView() {
                                     :
                                     null
                             }
-                            <span className='btn_access_primary d-flex align-items-center justify-content-center mt-3' onClick={controlButton} >Acessar</span>
+                            <span className='btn_access_primary d-flex align-items-center justify-content-center mt-3' onClick={controlButton}>Acessar</span>
                             <div className='auth_info_subtitle mt-2 d-flex flex-column align-items-center justify-content-center'>
                                 <div className='auth_info_subtitle_first mt-2'>
                                     <span>I.L.P.I</span>

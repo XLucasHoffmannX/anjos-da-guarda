@@ -17,9 +17,6 @@ class CreateFrequencyControlsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('control_id');
             $table->time('time');
-            $table->time('time_ended')->nullable();
-            $table->bigInteger('qtd');
-
             $table->foreign('control_id')->references('id')->on('controls')->onDelete('cascade');
 
             $table->timestamps();

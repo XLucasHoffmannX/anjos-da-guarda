@@ -29,7 +29,7 @@
 }
 
 .btn_access_primary{
-    width: 100%;
+    width: 95%;
     height: 50px;
     font-size: 18px;
     font-weight: bold;
@@ -61,7 +61,7 @@
 }
 
 .form-control-group input{
-    width: 100%;
+    width: 95%;
     border-radius: 8px;
     height: 56px;
     font-size: 18px;

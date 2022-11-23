@@ -15,7 +15,8 @@ class ControlController extends Controller
      */
     public function index()
     {
-        //
+        $controls = Control::all();
+        return response($controls);
     }
 
     /**
@@ -26,9 +27,16 @@ class ControlController extends Controller
      */
     public function store(Request $request)
     {
-        $frequency = Control::create($request->only('user_created', 'patient_owner', 'medicamento_id'));
+        $control = Control::create($request->only(
+            'user_created',
+            'patient_id',
+            'medicamento',
+            'description'
+        )
+        + ['medicamento_id' => $request->medicamento_id ? $request->medicamento_id : null]
+        + ['inventory_qtd' => 1]);
 
-        return response($frequency, Response::HTTP_CREATED);
+        return response($control, Response::HTTP_CREATED);
     }
 
     /**

@@ -17,7 +17,8 @@ class CreateLogControls extends Migration
             $table->bigIncrements('id');
             $table->date('date');
             $table->time('time');
-            $table->bigInteger('medicamento_id');
+            $table->bigInteger('medicamento');
+            $table->bigInteger('medicamento_id')->nullable();
             $table->bigInteger('pacient_id');
             $table->bigInteger('user_accepeted');
             $table->string('status');

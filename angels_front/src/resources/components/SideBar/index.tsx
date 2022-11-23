@@ -19,7 +19,7 @@ export default function SideBar() {
             }}
             position="left"
             fluid={true}
-            size={0.45}
+            size={0.7}
         >
             <div className='sidebar_box'>
                 <NavItems />

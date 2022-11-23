@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ControlController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserController;
@@ -36,4 +37,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::apiResource('/user', UserController::class);
     Route::apiResource('/patient', PatientController::class);
+
+    Route::apiResource('/control', ControlController::class);
 });

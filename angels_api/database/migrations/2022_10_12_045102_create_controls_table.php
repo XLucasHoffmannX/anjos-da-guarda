@@ -16,14 +16,16 @@ class CreateControlsTable extends Migration
         Schema::create('controls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_created');
-            $table->bigInteger('patient_owner');
+            $table->unsignedBigInteger('patient_id');
+            $table->string('medicamento');
+            $table->unsignedBigInteger('medicamento_id')->nullable();
             $table->string('description')->nullable();
+            $table->string('type_treatment')->default('Medicamento');
             $table->string('type')->default('comprimidos');
-            $table->integer('inventory_qtd');
+            $table->integer('inventory_qtd')->nullable();
             $table->boolean('activated')->default(1);
-            $table->unsignedBigInteger('medicamento_id');
 
-            $table->foreign('medicamento_id')->references('id')->on('medicamentos')->onDelete('cascade');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -11,6 +11,4 @@ class Control extends Model
 
     protected $fillable = ['user_created', 'patient_id', 'medicamento',
         'medicamento_id', 'description', 'inventory_qtd'];
-
-    
 }

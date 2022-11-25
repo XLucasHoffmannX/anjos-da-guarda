@@ -66,9 +66,11 @@ export default function Patients() {
                     <Link to="/create-patient" className='btn btn-sm btn-outline-primary'>Adicionar Paciente +</Link>
                 </div>
                 <div className='table-responsive'>
-                    <span style={{ cursor: 'pointer' }} onClick={() => ordem ? setOrdem(false) : setOrdem(true)}>Ordem <b>{ordem ? 'crescente' : 'decrescente'}</b></span>
-                    <span className='m-4'>Página Atual: {page}</span>
-                    <span className='m-4'>Quantidade de páginas: {lastPage}</span>
+                    <div className='options_table'>
+                        <span style={{ cursor: 'pointer' }} onClick={() => ordem ? setOrdem(false) : setOrdem(true)}>Ordem <b>{ordem ? 'crescente' : 'decrescente'}</b></span>
+                        <span className='m-4'>Página Atual: {page}</span>
+                        <span className='m-4'>Quantidade de páginas: {lastPage}</span>
+                    </div>
                     <table className="table table-striped table-sm w-100 mt-2">
                         <thead className='table'>
                             <tr>

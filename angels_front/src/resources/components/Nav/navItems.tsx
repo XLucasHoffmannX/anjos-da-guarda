@@ -17,23 +17,47 @@ export default function NavItems() {
 
     const changeInput = (e: SyntheticEvent) => changeInputRecursive(e, search, setSearch);
 
-    function searchFilter(arr: any, s: any) {
-        let matches = [], i, key;
+    function trimString(s: any) {
+        let l = 0, r = s.length - 1;
+        while (l < s.length && s[l] === ' ') l++;
+        while (r > l && s[r] === ' ') r -= 1;
+        return s.substring(l, r + 1);
+    }
 
-        for (i = arr.length; i--;)
-            for (key in arr[i]) {
-                if (arr[i].hasOwnProperty(key) && arr[i][key].indexOf(s) > -1)
-                    matches.push(arr[i]);
-            }
-        return matches;
-    };
+    function compareObjects(o1: any, o2: any) {
+        let k = '';
+        for (k in o1) if (o1[k] !== o2[k]) return false;
+        for (k in o2) if (o1[k] !== o2[k]) return false;
+        return true;
+    }
+
+    let objects: any = arrayNavItems;
 
     React.useEffect(() => {
+        function itemExists(haystack: any, needle: any) {
+            for (let i = 0; i < haystack.length; i++) if (compareObjects(haystack[i], needle)) return true;
+            return false;
+        }
+
+        function searchFor(toSearch: any) {
+            let results = [];
+            toSearch = trimString(toSearch); // trim it
+            for (let i = 0; i < arrayNavItems.length; i++) {
+                for (let key in objects[i]) {
+                    if (objects[i][key].indexOf(toSearch) !== -1) {
+                        if (!itemExists(results, objects[i])) results.push(objects[i]);
+                    }
+                }
+            }
+            return results;
+        }
+
         if (search.term) {
-            const resultSearch = searchFilter(arrayNavItems, search.term);
+            const resultSearch = searchFor(search.term);
             setArrayTerm(resultSearch);
         }
-    }, [setArrayTerm, arrayNavItems, search.term])
+
+    }, [setArrayTerm, arrayNavItems, search.term, objects])
 
     return (
         <>
@@ -47,13 +71,15 @@ export default function NavItems() {
                 <div className='nav_list'>
                     {
                         search.term ?
-                            arrayTerm.map((term: any, key: any) => (
-                                <span key={key}>
-                                    <NavLink
-                                        onClick={() => search.term = ''}
-                                        to={term.url} activeClassName='active_list'>{term.name}</NavLink>
-                                </span>
-                            ))
+                            arrayTerm.length > 0 ?
+                                arrayTerm.map((term: any, key: any) => (
+                                    <span key={key}>
+                                        <NavLink
+                                            onClick={() => search.term = ''}
+                                            to={term.url} activeClassName='active_list'>{term.name}</NavLink>
+                                    </span>
+                                ))
+                                : <span className='null_search'>Nenhum atalho encontrado!</span>
                             :
                             <>
                                 <span>

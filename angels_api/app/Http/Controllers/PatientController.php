@@ -31,6 +31,13 @@ class PatientController extends Controller
         return response($patientFilter->orderBy('id', $ordem)->paginate(10));
     }
 
+    public function getAll()
+    {
+        $patients = Patient::all();
+
+        return response($patients, Response::HTTP_ACCEPTED);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

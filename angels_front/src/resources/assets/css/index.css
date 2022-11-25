@@ -147,6 +147,11 @@ button {
   display: none;
 }
 
+.options_table{
+  display: flex;
+  align-items: center;
+}
+
 /* media queries */
 @media (max-width:900px) {
   .container_app {

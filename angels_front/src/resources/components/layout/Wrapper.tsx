@@ -53,12 +53,12 @@ const Wrapper: React.FC<Props> = ({ children, title, welcome }: any) => {
                     <div className='top_box_title'>
                         {
                             welcome ?
-                                <>
+                                <div className='title_home'>
                                     <h2>Bem vindo {title}!</h2>
                                     <h2 className='title_date'>{moment().locale('pt-br').format('LL')}</h2>
-                                </>
+                                </div>
                                 :
-                                <h2 className='d-flex align-items-center justify-content-center'>
+                                <h2 className='d-flex'>
                                     <span className='d-flex align-items-center justify-content-center' onClick={()=> history.goBack()} title="Voltar página anterior"><HiChevronLeft /></span>
                                     {title}
                                 </h2>

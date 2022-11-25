@@ -80,7 +80,7 @@ export default function Home() {
 				<div className='patients_box'>
 					<h2 className='title_box_h2'>Pacientes</h2>
 					<span className='title_box_sub'>Próximos atendimentos</span>
-					<div className='search_input mt-4' style={{ width: "350px" }}>
+					<div className='search_input mt-4' style={{ width: "min(350px, 100%)" }}>
 						<input type="text" placeholder='Buscar' />
 					</div>
 					<div className='table-responsive'>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Control;
+use App\Models\FrequencyControl;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,16 +28,16 @@ class ControlController extends Controller
      */
     public function store(Request $request)
     {
-        $control = Control::create($request->only(
+        $controlCreated = Control::create($request->only(
             'user_created',
             'patient_id',
             'medicamento',
             'description'
         )
-        + ['medicamento_id' => $request->medicamento_id ? $request->medicamento_id : null]
-        + ['inventory_qtd' => 1]);
+            + ['medicamento_id' => $request->medicamento_id ? $request->medicamento_id : null]
+            + ['inventory_qtd' => 1]);
 
-        return response($control, Response::HTTP_CREATED);
+        return response($controlCreated, Response::HTTP_CREATED);
     }
 
     /**
@@ -47,7 +48,16 @@ class ControlController extends Controller
      */
     public function show($id)
     {
-        //
+        $control = Control::find($id);
+
+        if (!$control) {
+            return response(["error" => "não econtrado"], Response::HTTP_BAD_REQUEST);
+        }
+
+        $frequencys = FrequencyControl::where("control_id", $control->id)->get();
+        $control['frequencys'] = $frequencys;
+
+        return response($control, Response::HTTP_ACCEPTED);
     }
 
     /**

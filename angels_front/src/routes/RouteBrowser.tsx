@@ -25,8 +25,8 @@ export default function RouteBrowser() {
     //console.log(state.userApi);
     return (
         <RouterApp>
-            <Nav />
             <SideBar />
+            <Nav />
             <Suspense fallback={<div><div className="vh-100 d-flex justify-content-center align-items-center"><CircularProgress /></div></div>}>
                 <Switch>
                     <Route exact path="/" component={RedirectLogged} />

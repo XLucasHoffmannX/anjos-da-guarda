@@ -15,7 +15,8 @@ class FrequencyControlController extends Controller
      */
     public function index()
     {
-        //
+        $frequencys = FrequencyControl::all();
+        return response($frequencys, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -26,7 +27,7 @@ class FrequencyControlController extends Controller
      */
     public function store(Request $request)
     {
-        $frequency = FrequencyControl::create($request->only('control_id', 'time', 'qtd'));
+        $frequency = FrequencyControl::create($request->only('control_id', 'time'));
 
         return response($frequency, Response::HTTP_CREATED);
     }

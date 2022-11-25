@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class FrequencyControl extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['time', 'control_id'];
 }

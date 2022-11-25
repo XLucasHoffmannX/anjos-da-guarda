@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Tab, Box, Typography, Tabs } from '@material-ui/core';
 import Wrapper from '../../components/layout/Wrapper';
 import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
+import { HttpAuth } from '../../../app/api/Http';
+import { ContextState } from '../../../context/DataProvider';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -39,14 +41,27 @@ function a11yProps(index: number) {
 
 
 export default function CreateControl() {
-    const [controlAtt, setControlAtt] = React.useState({
+    const state: any = React.useContext(ContextState);
+    const [userData] = state.userApi.userInfo;
+
+    const [controlAtt, setControlAtt] = React.useState<any>({
         typeControl: 0,
-        frequency: 0
+        frequency: 0,
+        patient_id: 0,
+        medicamento: '',
+        description: ''
     });
 
+    const [control, setControl] = React.useState();
     const [med, setMed] = React.useState<number>(0);
     const [freq, setFreq] = React.useState<any[]>([]);
+    const [patients, setPatients] = React.useState<any[]>([]);
     const [freqDefinitive, setFreqDefinitive] = React.useState<any[]>([]);
+    const [dataFinalizado, setDataFinalizado] = React.useState(false);
+    const [controlCreated, setControlCreated] = React.useState('');
+    const [freqField, setFreqField] = React.useState<any>({
+        value: ''
+    });
 
     const changeInput = (e: React.SyntheticEvent) => changeInputRecursive(e, controlAtt, setControlAtt);
     const [value, setValue] = React.useState(0);
@@ -56,14 +71,77 @@ export default function CreateControl() {
     };
 
     React.useEffect(() => {
-        console.log(freq)
-        console.table(freqDefinitive)
-    }, [freq, freqDefinitive]);
+
+        const getAllPatients = async () => {
+            const res = await HttpAuth.get(`/patient-all`);
+
+            setPatients(res.data);
+        };
+
+        getAllPatients();
+
+        const getControl = async (controlCreated: any) => {
+            HttpAuth.get(`/control/${controlCreated}`).then((res)=>{
+                setControl(res.data);
+            });
+
+        };
+
+        if(dataFinalizado){
+            if(controlCreated){
+                getControl(controlCreated);
+            }
+        }
+
+    }, [freq, freqDefinitive, freqField, dataFinalizado, controlCreated]);
 
     const changeFreq = (e: any) => {
         const { name, value } = e.target;
-        if (name < freq.length) {
-            setFreqDefinitive({ ...freqDefinitive, [name]: value });
+        console.log(freq.length, freqField.name)
+
+        setFreqField({ ...state, name, value });
+
+        if (name !== freqField.name && freqField.value !== '') {
+            setFreqDefinitive([...freqDefinitive, { value: freqField.value }]);
+        }
+    }
+
+    const handleSubmit = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        const param = {
+            user_created: userData.id,
+            patient_id: controlAtt.patient_id,
+            medicamento: controlAtt.medicamento,
+            description: controlAtt.description
+        }
+
+        if (param.medicamento && param.patient_id) {
+
+            if (freqDefinitive.length > 0 || freqField.value) {
+                HttpAuth.post('/control', { ...param }).then(async (res) => {
+                    if (res.data) {
+                        if (freqField.value && freqDefinitive.length < 0) {
+                            HttpAuth.post('/frequency',
+                                { control_id: res.data.id, time: freqField.value }
+                            );
+                        } else {
+                            for (let f of freqDefinitive) {
+                                console.log('data => ', f);
+                                HttpAuth.post('/frequency',
+                                    { control_id: res.data.id, time: f.value }
+                                );
+                            }
+                            HttpAuth.post('/frequency',
+                                { control_id: res.data.id, time: freqField.value }
+                            );
+                        }
+                        setDataFinalizado(true);
+                        setControlCreated(res.data.id);
+                    }
+                });
+            } else {
+                alert('Informar os horários das frequências');
+            }
         }
     }
 
@@ -77,9 +155,9 @@ export default function CreateControl() {
                         <Box sx={{ width: '100%' }}>
                             <Box>
                                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{ overflowX: 'auto' }}>
-                                    <Tab label="Tipo Tratamento" {...a11yProps(0)} />
-                                    <Tab label="Horários" {...a11yProps(1)} />
-                                    <Tab label="Informações do Paciente" {...a11yProps(2)} />
+                                    <Tab label="Tipo Tratamento" {...a11yProps(0)} disabled />
+                                    <Tab label="Horários" {...a11yProps(1)} disabled />
+                                    <Tab label="Informações do Paciente" {...a11yProps(2)} disabled />
                                 </Tabs>
                             </Box>
                             <TabPanel value={value} index={0}>
@@ -98,7 +176,7 @@ export default function CreateControl() {
                                     <>
                                         <div className='div_form'>
                                             <label className="form-label">Selecione ou informe medicamento</label>
-                                            <input type="text" className='form-control' placeholder='Medicamento registrado' required />
+                                            <input style={{ textTransform: 'capitalize' }} type="text" className='form-control' placeholder='Medicamento registrado' value={controlAtt.medicamento} name="medicamento" onChange={changeInput} required />
                                         </div>
                                         <div className='div_form'>
                                             <label className="form-label">Unidade</label>
@@ -154,28 +232,42 @@ export default function CreateControl() {
                                     ))
                                 }
                                 <div className='div_form d-flex flex-row-reverse'>
-                                    <button className='btn btn-primary mt-2' onClick={() => setValue(2)}>Próximo passo</button>
+                                    {
+                                        <button className='btn btn-primary mt-2' onClick={() => setValue(2)}>Próximo passo</button>
+                                    }
                                     <button className='btn btn-danger mt-2 mx-2' onClick={() => setValue(0)}>Voltar</button>
                                 </div>
                             </TabPanel>
                             <TabPanel value={value} index={2}>
                                 <div className='div_form'>
                                     <label className="form-label">Informe o paciente</label>
-                                    <select className='form-control' id="">
-                                        <option value="">André</option>
+                                    <select className='form-control' value={controlAtt.patient_id} name="patient_id" onChange={changeInput} >
+                                        <option selected disabled hidden value={0}>Selecione o paciente</option>
+                                        {
+                                            patients.map((pat: any, index) => (
+                                                <option value={pat.id} key={index}>{pat.name}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                                 <div className='div_form'>
                                     <label className="form-label">Descrição sobre o controle:</label>
-                                    <textarea className='form-control' id="">
-
-                                    </textarea>
+                                    <textarea className='form-control' value={controlAtt.description} name="description" onChange={changeInput}></textarea>
                                 </div>
                                 <div className='div_form d-flex flex-row-reverse'>
-                                    <button className='btn btn-danger mt-2 mx-2' onClick={() => setValue(1)}>Voltar</button>
+                                    <button className='btn btn-success mt-2 mx-2' onClick={handleSubmit}>Criar controle</button>
+                                    {
+                                        freqDefinitive.length > 0 || freqField.value !== '' ?
+                                            <button className='btn btn-danger mt-2 mx-2' onClick={() => document.location.href = '/create-control'}>Recriar controle</button>
+                                            :
+                                            <button className='btn btn-danger mt-2 mx-2' onClick={() => setValue(1)}>Voltar</button>
+                                    }
                                 </div>
                             </TabPanel>
                         </Box>
+                        {
+                            control ? control : null
+                        }
                     </form>
                 </div>
             </div>

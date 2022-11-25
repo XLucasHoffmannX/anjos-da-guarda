@@ -73,3 +73,14 @@
 .title_box_sub{
     color: var(--grey-border);
 }
+
+/* media queries */
+@media (max-width:900px) {
+    .cards_home_box{
+        width: 100%;
+    }
+
+    .card_home_box{
+        margin-bottom: 1rem;
+    }
+}

@@ -1,4 +1,4 @@
-.form_control_angels{
+.form_control_angels {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.form_control_angels form{
+.form_control_angels form {
     width: min(650px, 95%);
     border: 1px solid red;
     background: var(--white);
@@ -17,23 +17,65 @@
 
 
 .form_control_angels form select,
-.form_control_angels form select option
-{
+.form_control_angels form select option {
     cursor: pointer;
 }
 
-.div_form_image{
+.div_form_image {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.form_section{
+.form_section {
     color: var(--black);
     font-size: 24px;
 }
 
-.div_form{
+.div_form {
     margin-bottom: 1rem;
+}
+
+.div_form_add_plus {
+    display: flex;
+}
+
+.add_freq, .rem_freq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+
+.add_freq svg{
+    font-size: 28px;
+}
+
+.add_freq:hover{
+    background: var(--green);
+    color: var(--white);
+}
+
+.rem_freq{
+    background: var(--white);
+    border: 1px solid var(--red);
+    color: var(--red);
+}
+
+.rem_freq:hover{
+    background: var(--red);
+    color: var(--white);
+}
+
+.alertion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

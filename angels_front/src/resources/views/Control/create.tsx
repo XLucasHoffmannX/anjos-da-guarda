@@ -4,6 +4,9 @@ import Wrapper from '../../components/layout/Wrapper';
 import changeInputRecursive from '../../../app/helpers/ChangeInputRecursive';
 import { HttpAuth } from '../../../app/api/Http';
 import { ContextState } from '../../../context/DataProvider';
+import { BsPlus } from 'react-icons/bs';
+import { HiMinusSm } from 'react-icons/hi';
+
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,29 +45,39 @@ function a11yProps(index: number) {
 
 export default function CreateControl() {
     const state: any = React.useContext(ContextState);
+    const setModal = state.modalsGeral.modals[1];
     const [userData] = state.userApi.userInfo;
+    const [created, setCreated] = React.useState<boolean>(false);
 
     const [controlAtt, setControlAtt] = React.useState<any>({
         typeControl: 0,
         frequency: 0,
         patient_id: 0,
         medicamento: '',
-        description: ''
+        description: '',
+        numberAdd: ''
     });
 
-    const [control, setControl] = React.useState();
     const [med, setMed] = React.useState<number>(0);
-    const [freq, setFreq] = React.useState<any[]>([]);
     const [patients, setPatients] = React.useState<any[]>([]);
-    const [freqDefinitive, setFreqDefinitive] = React.useState<any[]>([]);
-    const [dataFinalizado, setDataFinalizado] = React.useState(false);
-    const [controlCreated, setControlCreated] = React.useState('');
-    const [freqField, setFreqField] = React.useState<any>({
-        value: ''
-    });
+
+    const [numberdata, setNumberData] = React.useState<any[]>([]);
 
     const changeInput = (e: React.SyntheticEvent) => changeInputRecursive(e, controlAtt, setControlAtt);
     const [value, setValue] = React.useState(0);
+
+    const insertNumberData = () => {
+        if (!controlAtt.numberAdd) return console.log('');
+        const itensCopy: any[] = Array.from(numberdata);
+        itensCopy.push({ freq: controlAtt.numberAdd });
+        setNumberData(itensCopy);
+    }
+
+    const removeNumberData = (index: any) => {
+        const itensCopy = Array.from(numberdata);
+        itensCopy.splice(index, 1)
+        setNumberData(itensCopy)
+    }
 
     const handleChange = (event: any, newValue: any) => {
         setValue(newValue);
@@ -80,68 +93,62 @@ export default function CreateControl() {
 
         getAllPatients();
 
-        const getControl = async (controlCreated: any) => {
-            HttpAuth.get(`/control/${controlCreated}`).then((res)=>{
-                setControl(res.data);
-            });
+        console.log(created);
 
-        };
 
-        if(dataFinalizado){
-            if(controlCreated){
-                getControl(controlCreated);
-            }
+        if (created) {
+            setModal({
+                open: true,
+                message: 'Controle criado, para visualizar e gerenciar acesse o Monitor Diário',
+                title: 'Controle Criado',
+                success: true,
+                link: '/create-control'
+            })
         }
 
-    }, [freq, freqDefinitive, freqField, dataFinalizado, controlCreated]);
-
-    const changeFreq = (e: any) => {
-        const { name, value } = e.target;
-        console.log(freq.length, freqField.name)
-
-        setFreqField({ ...state, name, value });
-
-        if (name !== freqField.name && freqField.value !== '') {
-            setFreqDefinitive([...freqDefinitive, { value: freqField.value }]);
-        }
-    }
+    }, [created, setModal]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        console.log('criando');
         const param = {
             user_created: userData.id,
             patient_id: controlAtt.patient_id,
             medicamento: controlAtt.medicamento,
-            description: controlAtt.description
+            description: controlAtt.description,
         }
 
-        if (param.medicamento && param.patient_id) {
+        console.log(controlAtt.numberAdd);
+        console.log(param.medicamento);
 
-            if (freqDefinitive.length > 0 || freqField.value) {
-                HttpAuth.post('/control', { ...param }).then(async (res) => {
-                    if (res.data) {
-                        if (freqField.value && freqDefinitive.length < 0) {
-                            HttpAuth.post('/frequency',
-                                { control_id: res.data.id, time: freqField.value }
-                            );
+        if (controlAtt.numberAdd && param.medicamento) {
+            setCreated(false);
+            console.log('entrei passo 1');
+
+            await HttpAuth.post('/control', { ...param })
+                .then(async (res) => {
+                    if (res.data.id) {
+                        console.log('entrei passo 1');
+                        const idControl = res.data.id;
+
+                        if (controlAtt.numberAdd && numberdata.length <= 0) {
+                            await HttpAuth.post('/frequency', {
+                                control_id: idControl,
+                                time: controlAtt.numberAdd
+                            }).then(res => {
+                                if (res.data) setCreated(true);
+                            });
                         } else {
-                            for (let f of freqDefinitive) {
-                                console.log('data => ', f);
-                                HttpAuth.post('/frequency',
-                                    { control_id: res.data.id, time: f.value }
-                                );
+                            for (let e of numberdata) {
+                                await HttpAuth.post('/frequency', {
+                                    control_id: idControl,
+                                    time: e.freq
+                                });
                             }
-                            HttpAuth.post('/frequency',
-                                { control_id: res.data.id, time: freqField.value }
-                            );
+                            setCreated(true);
                         }
-                        setDataFinalizado(true);
-                        setControlCreated(res.data.id);
                     }
                 });
-            } else {
-                alert('Informar os horários das frequências');
-            }
         }
     }
 
@@ -187,54 +194,50 @@ export default function CreateControl() {
                                                 <option value="">Injeção (ões)</option>
                                             </select>
                                         </div>
-                                        <div className='div_form'>
-                                            <label className="form-label">Frequêcia por dia</label>
-                                            <select className='form-control' name='frequency' value={controlAtt.frequency ? controlAtt.frequency : 0} onChange={(e: any) => {
-                                                changeInput(e);
-                                                setFreq([]);
-                                                for (let i = 1; i <= e.target.value; i++) {
-                                                    setFreq(prev => [...prev, {
-                                                        index: i,
-                                                        value: '',
-                                                    }])
-                                                }
-                                            }}>
-                                                <option selected disabled hidden value={0}>Quantidade de vezes no dia</option>
-                                                <option value={Number(1)}>1</option>
-                                                <option value={Number(2)}>2</option>
-                                                <option value={Number(3)}>3</option>
-                                                <option value={Number(4)}>4</option>
-                                                <option value={Number(5)}>5</option>
-                                            </select>
-                                        </div>
                                     </>
                                 }
                                 <div className='div_form d-flex flex-row-reverse'>
-                                    {
-                                        med !== 0 && freq.length > 0 ?
-                                            <button className='btn btn-primary mt-2' onClick={() => setValue(1)}>Próximo passo</button>
-                                            :
-                                            <button className='btn btn-primary mt-2' disabled onClick={() => setValue(1)}>Próximo passo</button>
-                                    }
+                                    <button className='btn btn-primary mt-2' disabled={!(med !== 0 && controlAtt.medicamento)} onClick={() => setValue(1)}>Próximo passo</button>
                                 </div>
                             </TabPanel>
                             <TabPanel value={value} index={1}>
+                                <label className="form-label">Intervalo de frequência</label>
+                                <div className='div_form div_form_add_plus'>
+                                    <input type="time" className='form-control' name='numberAdd' value={controlAtt.numberAdd} onChange={changeInput} />
+                                    {
+                                        numberdata.length !== 6 &&
+                                        <span className='add_freq' onClick={insertNumberData}>
+                                            Adicionar
+                                            <BsPlus />
+                                        </span>
+                                    }
+                                </div>
                                 {
-                                    freq.map((time, index) => (
-                                        <div className='div_form' key={index}>
-                                            <label className="form-label">Informe a frequência:</label>
-                                            <input
-                                                type="time" className='form-control' required
-                                                name={`${index}`}
-                                                onChange={changeFreq}
-                                            />
+                                    numberdata.length === 0 ? null :
+                                        <div className="viewNumbersAdd mt-4">
+                                            <hr />
+                                            <label className='mb-3'>Frequencias adicionadas</label>
+                                            {
+                                                numberdata.map((e, index) => (
+                                                    <div className='div_form div_form_add_plus' key={e}>
+                                                        <input type="time" className='form-control' value={e.freq} disabled />
+                                                        <span className='rem_freq' onClick={removeNumberData}>
+                                                            <HiMinusSm />
+                                                        </span>
+                                                    </div>
+                                                ))
+                                            }
                                         </div>
-                                    ))
+                                }
+                                {
+                                    numberdata.length === 6 ?
+                                        <div className="alertion">
+                                            <span className='alert alert-warning w-100 text-center'>No máximo 6 frequências!</span>
+                                        </div>
+                                        : null
                                 }
                                 <div className='div_form d-flex flex-row-reverse'>
-                                    {
-                                        <button className='btn btn-primary mt-2' onClick={() => setValue(2)}>Próximo passo</button>
-                                    }
+                                    <button className='btn btn-primary mt-2' disabled={!controlAtt.numberAdd} onClick={() => setValue(2)}>Próximo passo</button>
                                     <button className='btn btn-danger mt-2 mx-2' onClick={() => setValue(0)}>Voltar</button>
                                 </div>
                             </TabPanel>
@@ -256,18 +259,10 @@ export default function CreateControl() {
                                 </div>
                                 <div className='div_form d-flex flex-row-reverse'>
                                     <button className='btn btn-success mt-2 mx-2' onClick={handleSubmit}>Criar controle</button>
-                                    {
-                                        freqDefinitive.length > 0 || freqField.value !== '' ?
-                                            <button className='btn btn-danger mt-2 mx-2' onClick={() => document.location.href = '/create-control'}>Recriar controle</button>
-                                            :
-                                            <button className='btn btn-danger mt-2 mx-2' onClick={() => setValue(1)}>Voltar</button>
-                                    }
+                                    <button className='btn btn-danger mt-2 mx-2' onClick={() => setValue(1)}>Voltar</button>
                                 </div>
                             </TabPanel>
                         </Box>
-                        {
-                            control ? control : null
-                        }
                     </form>
                 </div>
             </div>

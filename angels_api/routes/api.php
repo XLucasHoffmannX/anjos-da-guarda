@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('/user', UserController::class);
     Route::apiResource('/patient', PatientController::class);
     Route::get('/patient-all', [PatientController::class, 'getAll']);
+    Route::get('/control/all', [ControlController::class, 'getAll']);
 
     Route::apiResource('/control', ControlController::class);
     Route::apiResource('/frequency', FrequencyControlController::class);

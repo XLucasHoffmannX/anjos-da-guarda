@@ -14,7 +14,23 @@ class ControlController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
+    {
+        $controlFilter = Control::query();
+        $ordem = 'DESC';
+
+        if (request('term')) {
+            $controlFilter->where('description', 'Like', '%' . request('term') . '%');
+        }
+
+        if (request('ordem')) {
+            $ordem = $request->ordem;
+        }
+
+        return response($controlFilter->orderBy('id', $ordem)->paginate(10));
+    }
+
+    public function getAll()
     {
         $controls = Control::all();
         return response($controls);

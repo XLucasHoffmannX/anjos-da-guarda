@@ -1,0 +1,11 @@
+.control_box_actions_btns{
+    display: flex;
+    align-items: center;
+}
+
+.control_box_actions_btns a{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}

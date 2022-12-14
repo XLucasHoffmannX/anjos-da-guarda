@@ -19,6 +19,7 @@ const CreatePatient = lazy(() => import('../resources/views/Patients/create'));
 const Medicamento = lazy(() => import('../resources/views/Medicamento'));
 const Control = lazy(() => import('../resources/views/Control'));
 const CreateControl = lazy(() => import('../resources/views/Control/create'));
+const Monitoring = lazy(() => import('../resources/views/Monitoring'));
 
 export default function RouteBrowser() {
     const state: any = useContext(ContextState);
@@ -48,6 +49,8 @@ export default function RouteBrowser() {
                     <PrivateRoute path="/medicamento"> <Medicamento /> </PrivateRoute>
                     <PrivateRoute path="/control"> <Control /> </PrivateRoute>
                     <PrivateRoute path="/create-control"> <CreateControl /> </PrivateRoute>
+                    
+                    <PrivateRoute path="/monitor"> <Monitoring /> </PrivateRoute>
 
 
                     <Route path="*" component={NotFound} />

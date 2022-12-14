@@ -254,7 +254,7 @@ export default function CreateControl() {
                                     </select>
                                 </div>
                                 <div className='div_form'>
-                                    <label className="form-label">Descrição sobre o controle:</label>
+                                    <label className="form-label">Informação sobre o controle</label>
                                     <textarea className='form-control' value={controlAtt.description} name="description" onChange={changeInput}></textarea>
                                 </div>
                                 <div className='div_form d-flex flex-row-reverse'>

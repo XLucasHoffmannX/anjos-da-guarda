@@ -119,8 +119,8 @@ export default function NavItems() {
                                             <span>Monitoramento Diário</span>
                                         </AccordionSummary >
                                         <AccordionDetails className='accordion_details_nav'>
-                                            <NavLink to="/m" activeClassName='active_list'>Monitoramento</NavLink>
-                                            <NavLink to="/m1" className="mt-1" activeClassName='active_list'>Controle de Tratamento</NavLink>
+                                            <NavLink to="/monitor" activeClassName='active_list'>Monitoramento</NavLink>
+                                            {/* <NavLink to="/create-monitor" className="mt-1" activeClassName='active_list'>Controle de Tratamento</NavLink> */}
                                         </AccordionDetails>
                                     </Accordion>
                                 </span>
